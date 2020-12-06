@@ -2,10 +2,10 @@ package pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static config.WebDriverSetup.*;
-
-public class LoginPage extends BasePage {
+public class LoginPage
+        extends AbstractBasePage {
 
     @FindBy(name = "username")
     private WebElement usernameInputField;
@@ -16,22 +16,22 @@ public class LoginPage extends BasePage {
     @FindBy(name = "login")
     private WebElement loginButton;
 
-    public void openLoginPage(String url) {
-        openPage(url);
+    public boolean isLoginPageLoaded() {
+        return isPageLoaded(usernameInputField, passwordInputField, loginButton);
     }
 
-    public void enterUsername() {
-        waitForElement(usernameInputField);
-        usernameInputField.sendKeys("dupa");
+    public void enterUsername(String username) {
+        waitUntil(ExpectedConditions.visibilityOf(usernameInputField));
+        usernameInputField.sendKeys(username);
     }
 
-    public void enterPassword() {
-        waitForElement(passwordInputField);
-        passwordInputField.sendKeys("dupa");
+    public void enterPassword(String password) {
+        waitUntil(ExpectedConditions.visibilityOf(passwordInputField));
+        passwordInputField.sendKeys(password);
     }
 
     public void pressLoginButton() {
-        waitForElement(loginButton);
+        waitUntil(ExpectedConditions.visibilityOf(loginButton));
         loginButton.click();
     }
 }
